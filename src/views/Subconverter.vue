@@ -4,25 +4,19 @@
       <el-col>
         <el-card>
           <div slot="header">
-            <svg-icon class="gayhub" icon-class="github" style="float:left" @click="goToProject"/>
-            <svg-icon class="dianbao" icon-class="telegram" style="float:left;margin-left: 10px"
-                      @click="gotoTgChannel"/>
-            <svg-icon class="bilibili" icon-class="bilibili" style="float:right;margin-left:10px"
-                      @click="gotoBiliBili"/>
-            <svg-icon class="youguan" icon-class="youtube" style="float:right;margin-left:10px" @click="gotoYouTuBe"/>
+            <svg-icon class="gayhub" icon-class="github" style="float:left" @click="goToProject" />
+            <svg-icon class="dianbao" icon-class="telegram" style="float:left;margin-left: 10px" @click="gotoTgChannel" />
+            <svg-icon class="bilibili" icon-class="bilibili" style="float:right;margin-left:10px" @click="gotoBiliBili" />
+            <svg-icon class="youguan" icon-class="youtube" style="float:right;margin-left:10px" @click="gotoYouTuBe" />
             <svg-icon class="channel" icon-class="telegram" style="float:right;margin-left: 10px"
-                      @click="gotoTgChannel"/>
+              @click="gotoTgChannel" />
             <div style="text-align:center;font-size:15px">订 阅 转 换</div>
           </div>
           <el-container>
             <el-form :model="form" label-width="80px" label-position="left" style="width: 100%">
               <el-form-item label="订阅链接:">
-                <el-input
-                    v-model="form.sourceSubUrl"
-                    type="textarea"
-                    rows="3"
-                    placeholder="支持各种订阅链接或单节点链接，多个链接每行一个或用 | 分隔"
-                />
+                <el-input v-model="form.sourceSubUrl" type="textarea" rows="3"
+                  placeholder="支持各种订阅链接或单节点链接，多个链接每行一个或用 | 分隔" />
               </el-form-item>
               <el-form-item label="生成类型:">
                 <el-select v-model="form.clientType" style="width: 100%">
@@ -30,47 +24,22 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="后端地址:">
-                <el-select
-                    v-model="form.customBackend"
-                    allow-create
-                    filterable
-                    @change="selectChanged"
-                    placeholder="可输入自己的后端"
-                    style="width: 100%"
-                >
+                <el-select v-model="form.customBackend" allow-create filterable @change="selectChanged"
+                  placeholder="可输入自己的后端" style="width: 100%">
                   <el-option v-for="(v, k) in options.customBackend" :key="k" :label="k" :value="v"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="短链选择:">
-                <el-select
-                    v-model="form.shortType"
-                    allow-create
-                    filterable
-                    placeholder="可输入其他可用短链API"
-                    style="width: 100%"
-                >
+                <el-select v-model="form.shortType" allow-create filterable placeholder="可输入其他可用短链API"
+                  style="width: 100%">
                   <el-option v-for="(v, k) in options.shortTypes" :key="k" :label="k" :value="v"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="远程配置:">
-                <el-select
-                    v-model="form.remoteConfig"
-                    allow-create
-                    filterable
-                    placeholder="请选择"
-                    style="width: 100%"
-                >
-                  <el-option-group
-                      v-for="group in options.remoteConfig"
-                      :key="group.label"
-                      :label="group.label"
-                  >
-                    <el-option
-                        v-for="item in group.options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                    ></el-option>
+                <el-select v-model="form.remoteConfig" allow-create filterable placeholder="请选择" style="width: 100%">
+                  <el-option-group v-for="group in options.remoteConfig" :key="group.label" :label="group.label">
+                    <el-option v-for="item in group.options" :key="item.value" :label="item.label"
+                      :value="item.value"></el-option>
                   </el-option-group>
                 </el-select>
               </el-form-item>
@@ -79,32 +48,27 @@
                   <el-collapse-item>
                     <template slot="title">
                       <el-form-item label="高级功能:" style="width: 100%;">
-                        <el-button
-                            type="limr"
-                            style="width: 100%;"
-                            icon="el-icon-more-outline"
-                        >点击显示/隐藏
+                        <el-button type="limr" style="width: 100%;" icon="el-icon-more-outline">点击显示/隐藏
                         </el-button>
                       </el-form-item>
                     </template>
                     <el-form-item label="包含节点:">
-                      <el-input v-model="form.includeRemarks" placeholder="要保留的节点，支持正则"/>
+                      <el-input v-model="form.includeRemarks" placeholder="要保留的节点，支持正则" />
                     </el-form-item>
                     <el-form-item label="排除节点:">
-                      <el-input v-model="form.excludeRemarks" placeholder="要排除的节点，支持正则"/>
+                      <el-input v-model="form.excludeRemarks" placeholder="要排除的节点，支持正则" />
                     </el-form-item>
                     <el-form-item label="节点命名:">
-                      <el-input v-model="form.rename" placeholder="举例：`a@b``1@2`，|符可用\转义"/>
+                      <el-input v-model="form.rename" placeholder="举例：`a@b``1@2`，|符可用\转义" />
                     </el-form-item>
                     <el-form-item label="远程设备:">
-                      <el-input v-model="form.devid" placeholder="用于设置QuantumultX的远程设备ID"/>
+                      <el-input v-model="form.devid" placeholder="用于设置QuantumultX的远程设备ID" />
                     </el-form-item>
                     <el-form-item label="更新间隔:">
-                      <el-input v-model="form.interval" placeholder="返用于设置托管配置更新间隔，单位为天"/>
+                      <el-input v-model="form.interval" placeholder="返用于设置托管配置更新间隔，单位为天" />
                     </el-form-item>
                     <el-form-item label="订阅命名:">
-                      <el-input v-model="form.filename"
-                                placeholder="返回的订阅文件名，可以在支持文件名的客户端中显示出来"/>
+                      <el-input v-model="form.filename" placeholder="返回的订阅文件名，可以在支持文件名的客户端中显示出来" />
                     </el-form-item>
                     <el-form-item class="eldiy" label-width="0px">
                       <el-row type="flex">
@@ -184,80 +148,44 @@
               </el-form-item>
               <div style="margin-top: 30px"></div>
               <el-divider content-position="center">
-                <el-button
-                    type="zhuti"
-                    @click="change">
+                <el-button type="zhuti" @click="change">
                   <i id="rijian" class="el-icon-sunny"></i>
                   <i id="yejian" class="el-icon-moon"></i>
                 </el-button>
               </el-divider>
               <el-form-item label="定制订阅:">
                 <el-input class="copy-content" disabled v-model="customSubUrl">
-                  <el-button
-                      slot="append"
-                      v-clipboard:copy="customSubUrl"
-                      v-clipboard:success="onCopy"
-                      ref="copy-btn"
-                      icon="el-icon-document-copy"
-                  >复制
+                  <el-button slot="append" v-clipboard:copy="customSubUrl" v-clipboard:success="onCopy" ref="copy-btn"
+                    icon="el-icon-document-copy">复制
                   </el-button>
                 </el-input>
               </el-form-item>
               <el-form-item label="订阅短链:">
-                <el-input class="copy-content" v-model="customShortSubUrl"
-                          placeholder="输入自定义短链接后缀，点击生成短链接可反复生成">
-                  <el-button
-                      slot="append"
-                      v-clipboard:copy="customShortSubUrl"
-                      v-clipboard:success="onCopy"
-                      ref="copy-btn"
-                      icon="el-icon-document-copy"
-                  >复制
+                <el-input class="copy-content" v-model="customShortSubUrl" placeholder="输入自定义短链接后缀，点击生成短链接可反复生成">
+                  <el-button slot="append" v-clipboard:copy="customShortSubUrl" v-clipboard:success="onCopy"
+                    ref="copy-btn" icon="el-icon-document-copy">复制
                   </el-button>
                 </el-input>
               </el-form-item>
               <el-form-item label-width="0px" style="margin-top: 40px; text-align: center">
-                <el-button
-                    style="width: 120px"
-                    type="danger"
-                    @click="makeUrl"
-                    :disabled="form.sourceSubUrl.length === 0 || btnBoolean"
-                >生成订阅链接
+                <el-button style="width: 120px" type="danger" @click="makeUrl"
+                  :disabled="form.sourceSubUrl.length === 0 || btnBoolean">生成订阅链接
                 </el-button>
-                <el-button
-                    style="width: 120px"
-                    type="danger"
-                    @click="makeShortUrl"
-                    :loading="loading1"
-                    :disabled="customSubUrl.length === 0"
-                >生成短链接
+                <el-button style="width: 120px" type="danger" @click="makeShortUrl" :loading="loading1"
+                  :disabled="customSubUrl.length === 0">生成短链接
                 </el-button>
               </el-form-item>
               <el-form-item label-width="0px" style="text-align: center">
-                <el-button
-                    style="width: 120px"
-                    type="primary"
-                    @click="dialogUploadConfigVisible = true"
-                    icon="el-icon-upload"
-                    :loading="loading2"
-                >自定义配置
+                <el-button style="width: 120px" type="primary" @click="dialogUploadConfigVisible = true"
+                  icon="el-icon-upload" :loading="loading2">自定义配置
                 </el-button>
-                <el-button
-                    style="width: 120px"
-                    type="primary"
-                    @click="dialogLoadConfigVisible = true"
-                    icon="el-icon-copy-document"
-                    :loading="loading3"
-                >从URL解析
+                <el-button style="width: 120px" type="primary" @click="dialogLoadConfigVisible = true"
+                  icon="el-icon-copy-document" :loading="loading3">从URL解析
                 </el-button>
               </el-form-item>
               <el-form-item label-width="0px" style="text-align: center">
-                <el-button
-                    style="width: 250px;"
-                    type="success"
-                    icon="el-icon-video-play"
-                    @click="centerDialogVisible = true"
-                >视频教程
+                <el-button style="width: 250px;" type="success" icon="el-icon-video-play"
+                  @click="centerDialogVisible = true">视频教程
                 </el-button>
               </el-form-item>
             </el-form>
@@ -265,48 +193,25 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-dialog
-        title="请选择需要观看的视频教程"
-        :visible.sync="centerDialogVisible"
-        :show-close="false"
-        width="40vh"
-        top="30vh"
-        center>
+    <el-dialog title="请选择需要观看的视频教程" :visible.sync="centerDialogVisible" :show-close="false" width="40vh" top="30vh"
+      center>
       <div label-width="0px" style="text-align: center">
-        <el-button
-            style="width: 200px;"
-            type="primary"
-            icon="el-icon-video-play"
-            @click="gotoBasicVideo();centerDialogVisible = false"
-        >基础视频教程
+        <el-button style="width: 200px;" type="primary" icon="el-icon-video-play"
+          @click="gotoBasicVideo(); centerDialogVisible = false">基础视频教程
         </el-button>
       </div>
       <div label-width="0px" style="text-align: center;margin: 3vh 0 2vh">
-        <el-button
-            style="width: 200px;"
-            type="danger"
-            icon="el-icon-video-play"
-            @click="gotoAdvancedVideo();centerDialogVisible = false"
-        >进阶视频教程
+        <el-button style="width: 200px;" type="danger" icon="el-icon-video-play"
+          @click="gotoAdvancedVideo(); centerDialogVisible = false">进阶视频教程
         </el-button>
       </div>
       <div label-width="0px" style="text-align: center;margin: 3vh 0 2vh">
-        <el-button
-            style="width: 200px;"
-            type="warning"
-            icon="el-icon-download"
-            @click="toolsDown"
-        >代理工具集合
+        <el-button style="width: 200px;" type="warning" icon="el-icon-download" @click="toolsDown">代理工具集合
         </el-button>
       </div>
     </el-dialog>
-    <el-dialog
-        :visible.sync="dialogUploadConfigVisible"
-        :show-close="false"
-        :close-on-click-modal="false"
-        :close-on-press-escape="false"
-        width="80%"
-    >
+    <el-dialog :visible.sync="dialogUploadConfigVisible" :show-close="false" :close-on-click-modal="false"
+      :close-on-press-escape="false" width="80%">
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="远程配置上传" name="first">
           <el-link type="danger" :href="sampleConfig" style="margin-bottom: 15px" target="_blank" icon="el-icon-info">
@@ -314,22 +219,13 @@
           </el-link>
           <el-form label-position="left">
             <el-form-item prop="uploadConfig">
-              <el-input
-                  v-model="uploadConfig"
-                  type="textarea"
-                  :autosize="{ minRows: 15, maxRows: 15}"
-                  maxlength="50000"
-                  show-word-limit
-              ></el-input>
+              <el-input v-model="uploadConfig" type="textarea" :autosize="{ minRows: 15, maxRows: 15 }" maxlength="50000"
+                show-word-limit></el-input>
             </el-form-item>
           </el-form>
           <div style="float: right">
             <el-button type="primary" @click="uploadConfig = ''; dialogUploadConfigVisible = false">取 消</el-button>
-            <el-button
-                type="primary"
-                @click="confirmUploadConfig"
-                :disabled="uploadConfig.length === 0"
-            >确 定
+            <el-button type="primary" @click="confirmUploadConfig" :disabled="uploadConfig.length === 0">确 定
             </el-button>
           </div>
         </el-tab-pane>
@@ -339,23 +235,13 @@
           </el-link>
           <el-form label-position="left">
             <el-form-item prop="uploadScript">
-              <el-input
-                  v-model="uploadScript"
-                  placeholder="本功能暂停使用，如有兴趣，自行去我的GitHub参考sub-web-api项目部署！"
-                  type="textarea"
-                  :autosize="{ minRows: 15, maxRows: 15}"
-                  maxlength="50000"
-                  show-word-limit
-              ></el-input>
+              <el-input v-model="uploadScript" placeholder="本功能暂停使用，如有兴趣，自行去我的GitHub参考sub-web-api项目部署！" type="textarea"
+                :autosize="{ minRows: 15, maxRows: 15 }" maxlength="50000" show-word-limit></el-input>
             </el-form-item>
           </el-form>
           <div style="float: right">
             <el-button type="primary" @click="uploadScript = ''; dialogUploadConfigVisible = false">取 消</el-button>
-            <el-button
-                type="primary"
-                @click="confirmUploadScript"
-                :disabled="uploadScript.length === 0"
-            >确 定
+            <el-button type="primary" @click="confirmUploadScript" :disabled="uploadScript.length === 0">确 定
             </el-button>
           </div>
         </el-tab-pane>
@@ -365,56 +251,32 @@
           </el-link>
           <el-form label-position="left">
             <el-form-item prop="uploadFilter">
-              <el-input
-                  v-model="uploadFilter"
-                  placeholder="本功能暂停使用，如有兴趣，自行去我的GitHub参考sub-web-api项目部署！"
-                  type="textarea"
-                  :autosize="{ minRows: 15, maxRows: 15}"
-                  maxlength="50000"
-                  show-word-limit
-              ></el-input>
+              <el-input v-model="uploadFilter" placeholder="本功能暂停使用，如有兴趣，自行去我的GitHub参考sub-web-api项目部署！" type="textarea"
+                :autosize="{ minRows: 15, maxRows: 15 }" maxlength="50000" show-word-limit></el-input>
             </el-form-item>
           </el-form>
           <div style="float: right">
             <el-button type="primary" @click="uploadFilter = ''; dialogUploadConfigVisible = false">取 消</el-button>
-            <el-button
-                type="primary"
-                @click="confirmUploadScript"
-                :disabled="uploadFilter.length === 0"
-            >确 定
+            <el-button type="primary" @click="confirmUploadScript" :disabled="uploadFilter.length === 0">确 定
             </el-button>
           </div>
         </el-tab-pane>
       </el-tabs>
     </el-dialog>
-    <el-dialog
-        :visible.sync="dialogLoadConfigVisible"
-        :show-close="false"
-        :close-on-click-modal="false"
-        :close-on-press-escape="false"
-        width="80%"
-    >
+    <el-dialog :visible.sync="dialogLoadConfigVisible" :show-close="false" :close-on-click-modal="false"
+      :close-on-press-escape="false" width="80%">
       <div slot="title">
         可以从生成的长/短链接中解析信息,填入页面中去
       </div>
       <el-form label-position="left">
         <el-form-item prop="uploadConfig">
-          <el-input
-              v-model="loadConfig"
-              type="textarea"
-              :autosize="{ minRows: 15, maxRows: 15}"
-              maxlength="5000"
-              show-word-limit
-          ></el-input>
+          <el-input v-model="loadConfig" type="textarea" :autosize="{ minRows: 15, maxRows: 15 }" maxlength="5000"
+            show-word-limit></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="loadConfig = ''; dialogLoadConfigVisible = false">取 消</el-button>
-        <el-button
-            type="primary"
-            @click="confirmLoadConfig"
-            :disabled="loadConfig.length === 0"
-        >确 定
+        <el-button type="primary" @click="confirmLoadConfig" :disabled="loadConfig.length === 0">确 定
         </el-button>
       </div>
     </el-dialog>
@@ -483,13 +345,13 @@ export default {
           "sub作者&lhie1提供": "https://api.dler.io",
         },
         backendOptions: [
-          {value: "https://url.v1.mk"},
-          {value: "https://sub.d1.mk"},
-          {value: "https://api.tsutsu.one"},
-          {value: "https://www.nameless13.com"},
-          {value: "https://sub.xeton.dev"},
-          {value: "https://api.wcc.best"},
-          {value: "https://api.dler.io"},
+          { value: "https://url.v1.mk" },
+          { value: "https://sub.d1.mk" },
+          { value: "https://api.tsutsu.one" },
+          { value: "https://www.nameless13.com" },
+          { value: "https://sub.xeton.dev" },
+          { value: "https://api.wcc.best" },
+          { value: "https://api.dler.io" },
         ],
         remoteConfig: [
           {
@@ -497,11 +359,11 @@ export default {
             options: [
               {
                 label: "默认",
-                value: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_NoAuto.ini"
+                value: "https://raw.githubusercontent.com/liulisanwan/clash_rule/main/custom.ini"
               },
               {
                 label: "默认（自动测速）",
-                value: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_AdblockPlus.ini"
+                value: "https://raw.githubusercontent.com/liulisanwan/clash_rule/main/custom.ini"
               },
               {
                 label: "默认（索尼电视专用）",
@@ -608,7 +470,7 @@ export default {
               {
                 label: "PharosPro无测速",
                 value:
-                    "https://subweb.s3.fr-par.scw.cloud/RemoteConfig/special/phaors.ini"
+                  "https://subweb.s3.fr-par.scw.cloud/RemoteConfig/special/phaors.ini"
               },
               {
                 label: "分区域故障转移",
@@ -734,72 +596,72 @@ export default {
               {
                 label: "EXFLUX",
                 value:
-                    "https://gist.github.com/jklolixxs/16964c46bad1821c70fa97109fd6faa2/raw/EXFLUX.ini"
+                  "https://gist.github.com/jklolixxs/16964c46bad1821c70fa97109fd6faa2/raw/EXFLUX.ini"
               },
               {
                 label: "NaNoport",
                 value:
-                    "https://gist.github.com/jklolixxs/32d4e9a1a5d18a92beccf3be434f7966/raw/NaNoport.ini"
+                  "https://gist.github.com/jklolixxs/32d4e9a1a5d18a92beccf3be434f7966/raw/NaNoport.ini"
               },
               {
                 label: "CordCloud",
                 value:
-                    "https://gist.github.com/jklolixxs/dfbe0cf71ffc547557395c772836d9a8/raw/CordCloud.ini"
+                  "https://gist.github.com/jklolixxs/dfbe0cf71ffc547557395c772836d9a8/raw/CordCloud.ini"
               },
               {
                 label: "BigAirport",
                 value:
-                    "https://gist.github.com/jklolixxs/e2b0105c8be6023f3941816509a4c453/raw/BigAirport.ini"
+                  "https://gist.github.com/jklolixxs/e2b0105c8be6023f3941816509a4c453/raw/BigAirport.ini"
               },
               {
                 label: "跑路云",
                 value:
-                    "https://gist.github.com/jklolixxs/9f6989137a2cfcc138c6da4bd4e4cbfc/raw/PaoLuCloud.ini"
+                  "https://gist.github.com/jklolixxs/9f6989137a2cfcc138c6da4bd4e4cbfc/raw/PaoLuCloud.ini"
               },
               {
                 label: "WaveCloud",
                 value:
-                    "https://gist.github.com/jklolixxs/fccb74b6c0018b3ad7b9ed6d327035b3/raw/WaveCloud.ini"
+                  "https://gist.github.com/jklolixxs/fccb74b6c0018b3ad7b9ed6d327035b3/raw/WaveCloud.ini"
               },
               {
                 label: "几鸡",
                 value:
-                    "https://gist.github.com/jklolixxs/bfd5061dceeef85e84401482f5c92e42/raw/JiJi.ini"
+                  "https://gist.github.com/jklolixxs/bfd5061dceeef85e84401482f5c92e42/raw/JiJi.ini"
               },
               {
                 label: "四季加速",
                 value:
-                    "https://gist.github.com/jklolixxs/6ff6e7658033e9b535e24ade072cf374/raw/SJ.ini"
+                  "https://gist.github.com/jklolixxs/6ff6e7658033e9b535e24ade072cf374/raw/SJ.ini"
               },
               {
                 label: "ImmTelecom",
                 value:
-                    "https://gist.github.com/jklolixxs/24f4f58bb646ee2c625803eb916fe36d/raw/ImmTelecom.ini"
+                  "https://gist.github.com/jklolixxs/24f4f58bb646ee2c625803eb916fe36d/raw/ImmTelecom.ini"
               },
               {
                 label: "AmyTelecom",
                 value:
-                    "https://gist.github.com/jklolixxs/b53d315cd1cede23af83322c26ce34ec/raw/AmyTelecom.ini"
+                  "https://gist.github.com/jklolixxs/b53d315cd1cede23af83322c26ce34ec/raw/AmyTelecom.ini"
               },
               {
                 label: "LinkCube",
                 value:
-                    "https://subweb.s3.fr-par.scw.cloud/RemoteConfig/customized/convenience.ini"
+                  "https://subweb.s3.fr-par.scw.cloud/RemoteConfig/customized/convenience.ini"
               },
               {
                 label: "Miaona",
                 value:
-                    "https://gist.github.com/jklolixxs/ff8ddbf2526cafa568d064006a7008e7/raw/Miaona.ini"
+                  "https://gist.github.com/jklolixxs/ff8ddbf2526cafa568d064006a7008e7/raw/Miaona.ini"
               },
               {
                 label: "Foo&Friends",
                 value:
-                    "https://gist.github.com/jklolixxs/df8fda1aa225db44e70c8ac0978a3da4/raw/Foo&Friends.ini"
+                  "https://gist.github.com/jklolixxs/df8fda1aa225db44e70c8ac0978a3da4/raw/Foo&Friends.ini"
               },
               {
                 label: "ABCloud",
                 value:
-                    "https://gist.github.com/jklolixxs/b1f91606165b1df82e5481b08fd02e00/raw/ABCloud.ini"
+                  "https://gist.github.com/jklolixxs/b1f91606165b1df82e5481b08fd02e00/raw/ABCloud.ini"
               },
               {
                 label: "咸鱼",
@@ -891,7 +753,7 @@ export default {
         clientType: "",
         customBackend: this.getUrlParam() == "" ? "https://url.v1.mk" : this.getUrlParam(),
         shortType: "https://v1.mk/short",
-        remoteConfig: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_NoAuto.ini",
+        remoteConfig: "https://raw.githubusercontent.com/liulisanwan/clash_rule/main/custom.ini",
         excludeRemarks: "",
         includeRemarks: "",
         filename: "",
@@ -1010,11 +872,11 @@ export default {
       }
     },
     tanchuang() {
-      this.$alert(`<div style="text-align:center;font-size:15px"><strong><span style="font-size:20px;color:red">apiurl.v1.mk已被蔷，请更换最新的url.v1.mk</span></strong></br><strong><span style="font-size:20px">本站官方TG交流群：</span><span><a href="https://t.me/feiyangdigital" target="_blank" style="color:red;font-size:20px;text-decoration:none">点击加入</a></span></strong></br><strong><span style="font-size:20px">IEPL高端机场（<span style="color:blue">原生支持各种流媒体</span>）：</span><span><a href="https://www.mcwy.org" style="color:red;font-size:20px;text-decoration:none">点击注册</a></span></strong></br><strong><span style="font-size:20px">奈飞、ChatGPT合租（<span style="color:blue">优惠码：feiyang</span>）：</span><span><a href="https://hezu.v1.mk/" style="color:red;font-size:20px;text-decoration:none">点击上车</a></span></strong></br><strong><span style="font-size:20px">IOS外区应用代购：</span><span><a href="https://fk.myue.club" style="color:red;font-size:20px;text-decoration:none">点击查看</a></span></strong></br>本站服务器赞助机场-牧场物语，是一家拥有BGP中继+IEPL企业级内网专线的高端机场，适合各个价位要求的用户，牧场物语采用最新的奈飞非自制剧解决方案，出口随机更换IP，确保尽可能的每个用户可以用上独立IP，以此来稳定解决奈飞非自制剧的封锁，并推出7*24小时奈飞非自制剧节点自动检测系统，用户再也不用自己手动一个个的乱试节点了，目前牧场的新加坡，台湾等节区域点均可做到24H稳定非自制剧观看！</br></div>`, '信息面板', {
-        confirmButtonText: '确定',
-        dangerouslyUseHTMLString: true,
-        customClass: 'msgbox'
-      });
+      // this.$alert(`<div style="text-align:center;font-size:15px"><strong><span style="font-size:20px;color:red">apiurl.v1.mk已被蔷，请更换最新的url.v1.mk</span></strong></br><strong><span style="font-size:20px">本站官方TG交流群：</span><span><a href="https://t.me/feiyangdigital" target="_blank" style="color:red;font-size:20px;text-decoration:none">点击加入</a></span></strong></br><strong><span style="font-size:20px">IEPL高端机场（<span style="color:blue">原生支持各种流媒体</span>）：</span><span><a href="https://www.mcwy.org" style="color:red;font-size:20px;text-decoration:none">点击注册</a></span></strong></br><strong><span style="font-size:20px">奈飞、ChatGPT合租（<span style="color:blue">优惠码：feiyang</span>）：</span><span><a href="https://hezu.v1.mk/" style="color:red;font-size:20px;text-decoration:none">点击上车</a></span></strong></br><strong><span style="font-size:20px">IOS外区应用代购：</span><span><a href="https://fk.myue.club" style="color:red;font-size:20px;text-decoration:none">点击查看</a></span></strong></br>本站服务器赞助机场-牧场物语，是一家拥有BGP中继+IEPL企业级内网专线的高端机场，适合各个价位要求的用户，牧场物语采用最新的奈飞非自制剧解决方案，出口随机更换IP，确保尽可能的每个用户可以用上独立IP，以此来稳定解决奈飞非自制剧的封锁，并推出7*24小时奈飞非自制剧节点自动检测系统，用户再也不用自己手动一个个的乱试节点了，目前牧场的新加坡，台湾等节区域点均可做到24H稳定非自制剧观看！</br></div>`, '信息面板', {
+      //   confirmButtonText: '确定',
+      //   dangerouslyUseHTMLString: true,
+      //   customClass: 'msgbox'
+      // });
     },
     onCopy() {
       this.$message.success("已复制");
@@ -1041,9 +903,9 @@ export default {
         customClass: 'msgbox',
         showClose: false,
       })
-          .then(() => {
-            window.open(basicVideo);
-          });
+        .then(() => {
+          window.open(basicVideo);
+        });
     },
     gotoAdvancedVideo() {
       this.$alert("别忘了关注友善的肥羊哦！", {
@@ -1052,9 +914,9 @@ export default {
         customClass: 'msgbox',
         showClose: false,
       })
-          .then(() => {
-            window.open(advancedVideo);
-          });
+        .then(() => {
+          window.open(advancedVideo);
+        });
     },
     makeUrl() {
       if (this.form.sourceSubUrl === "" || this.form.clientType === "") {
@@ -1062,76 +924,76 @@ export default {
         return false;
       }
       let backend =
-          this.form.customBackend === ""
-              ? defaultBackend
-              : this.form.customBackend;
+        this.form.customBackend === ""
+          ? defaultBackend
+          : this.form.customBackend;
       let sourceSub = this.form.sourceSubUrl;
       sourceSub = sourceSub.replace(/(\n|\r|\n\r)/g, "|");
       this.customSubUrl =
-          backend +
-          "/sub?target=" +
-          this.form.clientType +
-          "&url=" +
-          encodeURIComponent(sourceSub) +
-          "&insert=" +
-          this.form.insert;
+        backend +
+        "/sub?target=" +
+        this.form.clientType +
+        "&url=" +
+        encodeURIComponent(sourceSub) +
+        "&insert=" +
+        this.form.insert;
       if (this.form.remoteConfig !== "") {
         this.customSubUrl +=
-            "&config=" + encodeURIComponent(this.form.remoteConfig);
+          "&config=" + encodeURIComponent(this.form.remoteConfig);
       }
       if (this.form.excludeRemarks !== "") {
         this.customSubUrl +=
-            "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
+          "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
       }
       if (this.form.includeRemarks !== "") {
         this.customSubUrl +=
-            "&include=" + encodeURIComponent(this.form.includeRemarks);
+          "&include=" + encodeURIComponent(this.form.includeRemarks);
       }
       if (this.form.filename !== "") {
         this.customSubUrl +=
-            "&filename=" + encodeURIComponent(this.form.filename);
+          "&filename=" + encodeURIComponent(this.form.filename);
       }
       if (this.form.rename !== "") {
         this.customSubUrl +=
-            "&rename=" + encodeURIComponent(this.form.rename);
+          "&rename=" + encodeURIComponent(this.form.rename);
       }
       if (this.form.interval !== "") {
         this.customSubUrl +=
-            "&interval=" + encodeURIComponent(this.form.interval * 86400);
+          "&interval=" + encodeURIComponent(this.form.interval * 86400);
       }
       if (this.form.devid !== "") {
         this.customSubUrl +=
-            "&dev_id=" + encodeURIComponent(this.form.devid);
+          "&dev_id=" + encodeURIComponent(this.form.devid);
       }
       if (this.form.appendType) {
         this.customSubUrl +=
-            "&append_type=" + this.form.appendType.toString();
+          "&append_type=" + this.form.appendType.toString();
       }
       if (this.form.tls13) {
         this.customSubUrl +=
-            "&tls13=" + this.form.tls13.toString();
+          "&tls13=" + this.form.tls13.toString();
       }
       if (this.form.sort) {
         this.customSubUrl +=
-            "&sort=" + this.form.sort.toString();
+          "&sort=" + this.form.sort.toString();
       }
       this.customSubUrl +=
-          "&emoji=" +
-          this.form.emoji.toString() +
-          "&list=" +
-          this.form.nodeList.toString() +
-          "&xudp=" +
-          this.form.xudp.toString() +
-          "&udp=" +
-          this.form.udp.toString() +
-          "&tfo=" +
-          this.form.tfo.toString() +
-          "&expand=" +
-          this.form.expand.toString() +
-          "&scv=" +
-          this.form.scv.toString() +
-          "&fdn=" +
-          this.form.fdn.toString();
+        "&emoji=" +
+        this.form.emoji.toString() +
+        "&list=" +
+        this.form.nodeList.toString() +
+        "&xudp=" +
+        this.form.xudp.toString() +
+        "&udp=" +
+        this.form.udp.toString() +
+        "&tfo=" +
+        this.form.tfo.toString() +
+        "&expand=" +
+        this.form.expand.toString() +
+        "&scv=" +
+        this.form.scv.toString() +
+        "&fdn=" +
+        this.form.fdn.toString();
       if (this.form.clientType.includes("surge")) {
         if (this.form.tpl.surge.doh === true) {
           this.customSubUrl += "&surge.doh=true";
@@ -1153,9 +1015,9 @@ export default {
     },
     makeShortUrl() {
       let duan =
-          this.form.shortType === ""
-              ? shortUrlBackend
-              : this.form.shortType;
+        this.form.shortType === ""
+          ? shortUrlBackend
+          : this.form.shortType;
       this.loading1 = true;
       let data = new FormData();
       data.append("longUrl", btoa(this.customSubUrl));
@@ -1163,55 +1025,55 @@ export default {
         data.append("shortKey", this.customShortSubUrl.trim().indexOf("http") < 0 ? this.customShortSubUrl.trim() : "");
       }
       this.$axios
-          .post(duan, data, {
-            header: {
-              "Content-Type": "application/form-data; charset=utf-8"
-            }
-          })
-          .then(res => {
-            if (res.data.Code === 1 && res.data.ShortUrl !== "") {
-              this.customShortSubUrl = res.data.ShortUrl;
-              this.$copyText(res.data.ShortUrl);
-              this.$message.success("短链接已复制到剪贴板（IOS设备和Safari浏览器不支持自动复制API，需手动点击复制按钮）");
-            } else {
-              this.$message.error("短链接获取失败：" + res.data.Message);
-            }
-          })
-          .catch(() => {
-            this.$message.error("短链接获取失败");
-          })
-          .finally(() => {
-            this.loading1 = false;
-          });
+        .post(duan, data, {
+          header: {
+            "Content-Type": "application/form-data; charset=utf-8"
+          }
+        })
+        .then(res => {
+          if (res.data.Code === 1 && res.data.ShortUrl !== "") {
+            this.customShortSubUrl = res.data.ShortUrl;
+            this.$copyText(res.data.ShortUrl);
+            this.$message.success("短链接已复制到剪贴板（IOS设备和Safari浏览器不支持自动复制API，需手动点击复制按钮）");
+          } else {
+            this.$message.error("短链接获取失败：" + res.data.Message);
+          }
+        })
+        .catch(() => {
+          this.$message.error("短链接获取失败");
+        })
+        .finally(() => {
+          this.loading1 = false;
+        });
     },
     confirmUploadConfig() {
       this.loading2 = true;
       let data = new FormData();
       data.append("config", encodeURIComponent(this.uploadConfig));
       this.$axios
-          .post(configUploadBackend, data, {
-            header: {
-              "Content-Type": "application/form-data; charset=utf-8"
-            }
-          })
-          .then(res => {
-            if (res.data.code === 0 && res.data.data !== "") {
-              this.$message.success(
-                  "远程配置上传成功，配置链接已复制到剪贴板"
-              );
-              this.form.remoteConfig = res.data.data;
-              this.$copyText(this.form.remoteConfig);
-              this.dialogUploadConfigVisible = false;
-            } else {
-              this.$message.error("远程配置上传失败: " + res.data.msg);
-            }
-          })
-          .catch(() => {
-            this.$message.error("远程配置上传失败");
-          })
-          .finally(() => {
-            this.loading2 = false;
-          });
+        .post(configUploadBackend, data, {
+          header: {
+            "Content-Type": "application/form-data; charset=utf-8"
+          }
+        })
+        .then(res => {
+          if (res.data.code === 0 && res.data.data !== "") {
+            this.$message.success(
+              "远程配置上传成功，配置链接已复制到剪贴板"
+            );
+            this.form.remoteConfig = res.data.data;
+            this.$copyText(this.form.remoteConfig);
+            this.dialogUploadConfigVisible = false;
+          } else {
+            this.$message.error("远程配置上传失败: " + res.data.msg);
+          }
+        })
+        .catch(() => {
+          this.$message.error("远程配置上传失败");
+        })
+        .finally(() => {
+          this.loading2 = false;
+        });
     },
     analyzeUrl() {
       if (this.loadConfig.indexOf("target") !== -1) {
@@ -1369,46 +1231,46 @@ export default {
       data.append("sortscript", encodeURIComponent(this.uploadScript));
       data.append("filterscript", encodeURIComponent(this.uploadFilter));
       this.$axios
-          .post(configScriptBackend, data, {
-            header: {
-              "Content-Type": "application/form-data; charset=utf-8"
-            }
-          })
-          .then(res => {
-            if (res.data.code === 0 && res.data.data !== "") {
-              this.$message.success(
-                  "自定义JS上传成功，订阅链接已复制到剪贴板（IOS设备和Safari浏览器不支持自动复制API，需手动点击复制按钮）"
-              );
-              this.customSubUrl = res.data.data;
-              this.$copyText(res.data.data);
-              this.dialogUploadConfigVisible = false;
-              this.btnBoolean = true;
-            } else {
-              this.$message.error("自定义JS上传失败: " + res.data.msg);
-            }
-          })
-          .catch(() => {
-            this.$message.error("自定义JS上传失败");
-          })
-          .finally(() => {
-            this.loading2 = false;
-          })
+        .post(configScriptBackend, data, {
+          header: {
+            "Content-Type": "application/form-data; charset=utf-8"
+          }
+        })
+        .then(res => {
+          if (res.data.code === 0 && res.data.data !== "") {
+            this.$message.success(
+              "自定义JS上传成功，订阅链接已复制到剪贴板（IOS设备和Safari浏览器不支持自动复制API，需手动点击复制按钮）"
+            );
+            this.customSubUrl = res.data.data;
+            this.$copyText(res.data.data);
+            this.dialogUploadConfigVisible = false;
+            this.btnBoolean = true;
+          } else {
+            this.$message.error("自定义JS上传失败: " + res.data.msg);
+          }
+        })
+        .catch(() => {
+          this.$message.error("自定义JS上传失败");
+        })
+        .finally(() => {
+          this.loading2 = false;
+        })
     },
     getBackendVersion() {
-      this.$axios
-          .get(
-              this.form.customBackend + "/version"
-          )
-          .then(res => {
-            this.backendVersion = res.data.replace(/backend\n$/gm, "");
-            this.backendVersion = this.backendVersion.replace("subconverter", "SubConverter");
-            let a = this.form.customBackend.indexOf("url.v1.mk") !== -1 || this.form.customBackend.indexOf("sub.d1.mk") !== -1;
-            let b = this.form.customBackend.indexOf("127.0.0.1") !== -1;
-            a ? this.$message.success(`${this.backendVersion}` + "肥羊负载均衡增强版后端，已屏蔽免费节点池（会返回403），额外支持vless reality+hysteria+hysteria2订阅转换") : b ? this.$message.success(`${this.backendVersion}` + "本地局域网自建版后端") : this.$message.success(`${this.backendVersion}` + "官方原版后端不支持vless/hysteria订阅转换");
-          })
-          .catch(() => {
-            this.$message.error("请求SubConverter版本号返回数据失败，该后端不可用！");
-          });
+      // this.$axios
+      //   .get(
+      //     this.form.customBackend + "/version"
+      //   )
+      //   .then(res => {
+      //     this.backendVersion = res.data.replace(/backend\n$/gm, "");
+      //     this.backendVersion = this.backendVersion.replace("subconverter", "SubConverter");
+      //     let a = this.form.customBackend.indexOf("url.v1.mk") !== -1 || this.form.customBackend.indexOf("sub.d1.mk") !== -1;
+      //     let b = this.form.customBackend.indexOf("127.0.0.1") !== -1;
+      //     a ? this.$message.success(`${this.backendVersion}` + "肥羊负载均衡增强版后端，已屏蔽免费节点池（会返回403），额外支持vless reality+hysteria+hysteria2订阅转换") : b ? this.$message.success(`${this.backendVersion}` + "本地局域网自建版后端") : this.$message.success(`${this.backendVersion}` + "官方原版后端不支持vless/hysteria订阅转换");
+      //   })
+      //   .catch(() => {
+      //     this.$message.error("请求SubConverter版本号返回数据失败，该后端不可用！");
+      //   });
     }
   }
 };
