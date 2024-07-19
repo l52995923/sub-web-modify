@@ -359,11 +359,11 @@ export default {
             options: [
               {
                 label: "默认",
-                value: "https://raw.githubusercontent.com/liulisanwan/clash_rule/main/custom.ini"
+                value: "https://raw.githubusercontent.com/l52995923/sub-web-modify/master/custom.ini"
               },
               {
                 label: "默认（自动测速）",
-                value: "https://raw.githubusercontent.com/liulisanwan/clash_rule/main/custom.ini"
+                value: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_AdblockPlus.ini"
               },
               {
                 label: "默认（索尼电视专用）",
@@ -753,7 +753,7 @@ export default {
         clientType: "",
         customBackend: this.getUrlParam() == "" ? "https://url.v1.mk" : this.getUrlParam(),
         shortType: "https://v1.mk/short",
-        remoteConfig: "https://raw.githubusercontent.com/liulisanwan/clash_rule/main/custom.ini",
+        remoteConfig: "https://raw.githubusercontent.com/l52995923/sub-web-modify/master/custom.ini",
         excludeRemarks: "",
         includeRemarks: "",
         filename: "",
